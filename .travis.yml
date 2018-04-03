@@ -17,6 +17,13 @@ matrix:
       env: CONDA=1
     - python: 3.6
       env: CONDA=1
+    - sudo: required
+      services:
+        - docker
+      env: PIP=pip
+    - os: osx
+      language: generic
+      env: PIP=pip2
 
 env:
   global:
@@ -27,3 +34,5 @@ install:
 
 script:
   - source ci/travis-build.sh
+  - $PIP install cibuildwheel==0.7.1
+  - cibuildwheel --output-dir wheelhouse
